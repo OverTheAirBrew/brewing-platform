@@ -3,6 +3,8 @@ FROM node:16-slim
 ENV NODE_ENV=production
 ENV HUSKY_SKIP_INSTALL=1
 
+LABEL org.opencontainers.image.source https://github.com/overtheairbrew/brewing-platform
+
 WORKDIR /src/app
 
 COPY ./dist ./dist
