@@ -34,7 +34,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
+          username: ota-brewbot
           password: ${{ secrets.BREWBOT_GITHUB_TOKEN }}
       - name: Docker meta
         id: meta_id
