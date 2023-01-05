@@ -34,7 +34,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ota-brewbot
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.BREWBOT_GITHUB_TOKEN }}
       - name: Docker meta
         id: meta_id
@@ -42,7 +42,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            overtheairbrew/brewing-platform
+            ghcr.io/overtheairbrew/brewing-platform
           tags: |
             type=schedule
             type=ref,event=branch
