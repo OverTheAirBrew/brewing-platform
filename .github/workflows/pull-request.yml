@@ -20,8 +20,6 @@ jobs:
       - name: Generate Short SHA
         id: build_sha
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-      - name: Check outputs
-        run: echo ${{ steps.vars.outputs.sha_short }}
       - name: Install Dependencies
         run: npm ci
       - name: Build
@@ -42,4 +40,4 @@ jobs:
           context: .
           platforms: linux/arm64,linux/arm/v7,linux/amd64
           push: true
-          tags: ghcr.io/overtheairbrew/brewing-platform:${{ steps.vars.outputs.sha_short }}
+          tags: ghcr.io/overtheairbrew/brewing-platform:${{ steps.build_sha.outputs.sha_short }}
