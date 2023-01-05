@@ -26,5 +26,32 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Docker Package
-        run: docker build -t overtheairbrew/brewing-platform:${{ steps.build_sha.outputs.sha_short }} .
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Docker meta
+        id: <meta_id> # you'll use this in the next step
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            <specify the image name>
+          # Docker tags based on the following events/attributes
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          platforms: linux/arm64,linux/arm/v7,linux/amd64
+          push: false
+          tags: overtheairbrew/brewing-platform:${{ steps.build_sha.outputs.sha_short }}
+          labels: ${{ steps.<meta_id>.outputs.labels }}
