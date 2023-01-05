@@ -19,5 +19,5 @@ jobs:
       - uses: actions/labeler@v3
         with:
           repo-token: '${{ secrets.BREWBOT_GITHUB_TOKEN }}'
-          configuration-path: .github/config/pr-labeler.yml
+          configuration-path: .github/config/pr-labeller.yml
           sync-labels: ''

@@ -27,4 +27,4 @@ jobs:
       - name: Build
         run: npm run build
       - name: Docker Package
-        run: docker build -t @overtheairbrew/brewing-platform:${{ steps.build_sha.outputs.sha_short }} .
+        run: docker build -t overtheairbrew/brewing-platform:${{ steps.build_sha.outputs.sha_short }} .
