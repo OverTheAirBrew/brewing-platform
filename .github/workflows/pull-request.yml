@@ -36,20 +36,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.BREWBOT_GITHUB_TOKEN }}
-      - name: Docker meta
-        id: meta_id
-        uses: docker/metadata-action@v3
-        with:
-          # list of Docker images to use as base name for tags
-          images: |
-            ghcr.io/overtheairbrew/brewing-platform
-          tags: |
-            type=sha
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .
           platforms: linux/arm64,linux/arm/v7,linux/amd64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta_id.outputs.labels }}
+          tags: ghcr.io/overtheairbrew/brewing-platform:${{ steps.vars.outputs.sha_short }}
