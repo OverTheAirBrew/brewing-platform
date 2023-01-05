@@ -57,5 +57,5 @@ jobs:
           context: .
           platforms: linux/arm64,linux/arm/v7,linux/amd64
           push: true
-          tags: ${{ steps.build_sha.outputs.sha_short }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta_id.outputs.labels }}
