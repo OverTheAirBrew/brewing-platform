@@ -1,0 +1,16 @@
+Workflow:
+  - .github/workflows/*
+
+Documentation:
+  - '*.md'
+  - '*/**/*.md'
+
+dependencies:
+  - 'package-lock.json'
+  - 'package.json'
+
+Homebrew:
+  '*'
+
+Docker:
+  'Dockerfile'
