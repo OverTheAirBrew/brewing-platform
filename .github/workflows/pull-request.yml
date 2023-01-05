@@ -37,8 +37,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            <specify the image name>
-          # Docker tags based on the following events/attributes
+            overtheairbrew/brewing-platform
           tags: |
             type=schedule
             type=ref,event=branch
@@ -53,5 +52,5 @@ jobs:
           context: .
           platforms: linux/arm64,linux/arm/v7,linux/amd64
           push: false
-          tags: overtheairbrew/brewing-platform:${{ steps.build_sha.outputs.sha_short }}
+          tags: ${{ steps.build_sha.outputs.sha_short }}
           labels: ${{ steps.<meta_id>.outputs.labels }}
