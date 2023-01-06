@@ -1,0 +1,18 @@
+name: 'Remove docker image'
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  purge-image:
+    name: Delete image from ghcr.io
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete image
+        uses: bots-house/ghcr-delete-image-action@v1.0.0
+        with:
+          owner: overtheairbrew
+          name: brewing-platform
+          token: ${{ secrets.BREWBOT_GITHUB_TOKEN }}
+          tag: pr-${{github.event.pull_request.number}}
