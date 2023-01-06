@@ -46,6 +46,6 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            Docker image related to this pr: ${{ steps.docker_push.outputs.imageid }}
+            Docker image related to this pr: `ghcr.io/overtheairbrew/brewing-platform:pr-${{github.event.pull_request.number}}`
           pr_number: ${{github.event.pull_request.number}}
           comment_tag: pr-docker-info
