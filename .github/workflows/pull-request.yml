@@ -36,8 +36,16 @@ jobs:
           password: ${{ secrets.BREWBOT_GITHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v2
+        id: docker_push
         with:
           context: .
           platforms: linux/arm64,linux/arm/v7,linux/amd64
           push: true
           tags: ghcr.io/overtheairbrew/brewing-platform:pr-${{github.event.pull_request.number}}
+      - name: Comment docker image link on pr
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Docker image related to this pr: ${{ steps.docker_push.outputs.imageid }}
+          pr_number: ${{github.event.pull_request.number}}
+          comment_tag: pr-docker-info
