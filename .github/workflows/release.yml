@@ -43,6 +43,8 @@ jobs:
           password: ${{ secrets.BREWBOT_GITHUB_TOKEN }}
       - name: Run release
         run: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.BREWBOT_GITHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v2
         id: docker_push
