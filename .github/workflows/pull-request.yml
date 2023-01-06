@@ -40,6 +40,4 @@ jobs:
           context: .
           platforms: linux/arm64,linux/arm/v7,linux/amd64
           push: true
-          tags: ghcr.io/overtheairbrew/brewing-platform:${{ steps.build_sha.outputs.sha_short }}
-          labels:
-            type=pull-request
+          tags: ghcr.io/overtheairbrew/brewing-platform:pr-${{github.event.pull_request.number}}
