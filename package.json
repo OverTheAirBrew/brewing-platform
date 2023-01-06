@@ -40,7 +40,7 @@
     "mysql2": "^2.3.3",
     "nest-next": "^10.0.0",
     "nestjs-s3": "^1.0.1",
-    "next": "^13.0.7",
+    "next": "^13.1.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
