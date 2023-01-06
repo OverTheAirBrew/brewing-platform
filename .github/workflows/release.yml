@@ -1,0 +1,53 @@
+name: pull-request
+
+on:
+  push:
+    branches:
+      - main
+      - next
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - name: Install Dependencies
+        run: npm ci
+      - name: Get latest version
+        uses: cycjimmy/semantic-release-action@v3
+        with:
+          dry_run: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.BREWBOT_GITHUB_TOKEN }}
+      - name: Build
+        run: npm run build
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.BREWBOT_GITHUB_TOKEN }}
+      - name: Run release
+        run: npm run release
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        id: docker_push
+        with:
+          context: .
+          platforms: linux/arm64,linux/arm/v7,linux/amd64
+          push: true
+          tags: ghcr.io/overtheairbrew/brewing-platform:pr-${{ env.NEXT_RELEASE_VERSION }}
