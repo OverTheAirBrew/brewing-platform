@@ -1,4 +1,4 @@
-name: pull-request
+name: release
 
 on:
   push:
@@ -52,4 +52,4 @@ jobs:
           context: .
           platforms: linux/arm64,linux/arm/v7,linux/amd64
           push: true
-          tags: ghcr.io/overtheairbrew/brewing-platform:pr-${{ env.NEXT_RELEASE_VERSION }}
+          tags: ghcr.io/overtheairbrew/brewing-platform:latest
