@@ -34,7 +34,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "!release.config.js"
   ],
   "exclude": [
     "node_modules"
